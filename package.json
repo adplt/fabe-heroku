@@ -3,15 +3,45 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "npm run dev:env && nodemon --exec npm run babel-node -- ./app/bin/www",
+    "babel-node": "babel-node --presets=env",
+    "dev:env": "set NODE_ENV=dev",
+    "test:env": "set NODE_ENV=test",
+    "test": "NODE_ENV=test mocha --require babel-core/register ./app/tests --opts ./app/tests/mocha.opts",
+    "test:windows": "npm run test:env && mocha --require babel-core/register ./app/tests/ --opts ./app/tests/mocha.opts",
+    "lint": "echo 'Running lint...' && eslint app/",
+    "lint:fix": "eslint app/ --fix",
+    "prepush": "npm run lint && npm run test",
+    "build-server": "babel -d ./build ./app -s",
+    "dev": "npm run build-server && pm2 restart mysiloam-api-dev",
+    "dev:new": "npm run build-server && pm2 start dev.config.js",
+    "prod": "npm run build-server && pm2 restart mysiloam-api-prod",
+    "prod:new": "npm run build-server && pm2 start prod.config.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
+    "ejs": "^3.0.1",
+    "ejs-lint": "^1.0.1",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.1",
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
+    "husky": "^4.2.3",
+    "lodash": "^4.17.15",
+    "mocha": "^7.1.0",
+    "moment": "^2.24.0",
     "morgan": "~1.9.0",
-    "pug": "2.0.0-beta11",
-    "puppeteer": "^2.1.1"
+    "puppeteer": "^2.1.1",
+    "redis": "^3.0.2",
+    "syntax-error": "^1.4.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
   }
 }
