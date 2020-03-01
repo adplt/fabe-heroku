@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "NODE_ENV=dev node ./app/bin/www",
-    "test": "NODE_ENV=test mocha --require babel-core/register ./app/tests --opts ./app/tests/mocha.opts",
+    "test": "NODE_ENV=test mocha ./app/tests --opts ./app/tests/mocha.opts",
     "lint": "echo 'Running lint...' && eslint app/",
     "lint:fix": "eslint app/ --fix",
     "prepush": "npm run lint && npm run test"
@@ -28,7 +28,9 @@
     "morgan": "~1.9.0",
     "puppeteer": "git+https://github.com/GoogleChrome/puppeteer.git",
     "redis": "^3.0.2",
-    "uuid": "^7.0.1"
+    "uuid": "^7.0.1",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
