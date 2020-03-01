@@ -15,7 +15,7 @@ module.exports = {
         if (!isEmpty(err1)) throw err1;
 
         const existingProduct = JSON.parse(product) || [];
-        let checkExisting = existingProduct.filter((prod) => prod.product_url === link);
+        let checkExisting = existingProduct.filter((prod) => prod.product_link === link);
         if (isEmpty(checkExisting)) {
           /* scrapping */
           const browser = await puppeteer.launch({ headless: true });
@@ -23,6 +23,19 @@ module.exports = {
           await page.goto(link);
           await page.waitForSelector('img.fotorama__img');
           const images = await page.$$eval('img.fotorama__img[src]', (imgs) => imgs.map((img) => img.getAttribute('src')));
+          // const images = await page.$$eval(
+          //   'div.fotorama__nav__frame.fotorama__nav__frame--thumb[href]',
+          //   (imgs) => imgs.map(async () => {
+          //     await page.click('div[class=".fotorama__arr__arr"]');
+          //     return document
+          //       .querySelector(
+          //         `div.${'fotorama__stage__frame'
+          //       }.${'fotorama__active'
+          //       }.${'fotorama_horizontal_ratio'
+          //       }.${'fotorama__loaded'
+          //       }.${'fotorama__loaded--img'}`
+          //       ).getAttribute('href');
+          // }));
           const resultSet = await page.evaluate(() => ({
             product_title: document.querySelector('span.base').innerText,
             product_price: document.querySelector('span.price').innerText,

@@ -1,6 +1,23 @@
 <html lang="en">
 <head>
     <%- include('../partials/title') %>
+    <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    </style>
 </head>
 <body class="container">
 
@@ -12,18 +29,35 @@
     <div class="jumbotron">
         <h1>Product List</h1>
         <p>Here some link inputed bellow</p>
-
         <% if (products) { %>
-          <ul>
-
-                <% products.forEach(function(product) { %>
-                    <li><%= product.product_id %> - <%= product.product_link %></li>
-                <% }); %>
-          </ul>
+          <table>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Price</th>
+              <th>Link</th>
+            </tr>
+            <% products.forEach(function(product) { %>
+              <tr data-href="/detail/<%= product.product_id %>">
+                <td><%= product.product_id %></td>
+                <td><%= product.product_title %></td>
+                <td><%= product.product_price %></td>
+                <td><a href="<%= product.product_link %>"><%= product.product_link %></a></td>
+              </tr>
+            <% }); %>
+          </table>
         <% } else { %>
           <h2>There's no link inputed</h2>
         <% } %>
     </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const rows = document.querySelectorAll('tr[data-href]');
+        rows.forEach((row) => {
+          row.addEventListener('click', () => window.location.href = row.dataset.href);
+        });
+      });
+    </script>
 </main>
 
 <footer>
