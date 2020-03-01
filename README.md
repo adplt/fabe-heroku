@@ -70,21 +70,21 @@ module.exports = client;
 
 ```
 <nav class="navbar navbar-default" role="navigation">
-<div class="container-fluid">
+  <div class="container-fluid">
 
-    <div class="navbar-header">
-        <a class="navbar-brand" href="/">
-            <span class="glyphicon glyphicon glyphicon-tree-deciduous"></span>
-            Fabelio
-        </a>
+      <div class="navbar-header">
+          <a class="navbar-brand" href="/">
+              <span class="glyphicon glyphicon glyphicon-tree-deciduous"></span>
+              Fabelio
+          </a>
 
-        <ul class="nav navbar-nav">
-            <li><a href="/">Home</a></li>
-            <li><a href="/list">List</a></li>
-        </ul>
-    </div>
+          <ul class="nav navbar-nav">
+              <li><a href="/">Home</a></li>
+              <li><a href="/list">List</a></li>
+          </ul>
+      </div>
 
-</div>
+  </div>
 </nav>
 
 ```
