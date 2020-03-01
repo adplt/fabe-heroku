@@ -1,13 +1,14 @@
-import redis from 'redis';
+const redis = require('redis');
+const config = require('./env.config');
 
-const client = redis.createClient(13080, 'http://redis-13080.c73.us-east-1-2.ec2.cloud.redislabs.com/');
+const client = redis.createClient(config.redis.port, config.redis.host, config.redis.options);
 
 client.on('error', (error) => {
   console.log('Failed to establish Redis Connection', error); // eslint-disable-line no-console
 });
 
 client.on('connect', () => {
-  console.log('Redis client connected', 'http://redis-13080.c73.us-east-1-2.ec2.cloud.redislabs.com/'); // eslint-disable-line no-console
+  console.log('Redis client connected', `${config.redis.host}:${config.redis.port}`); // eslint-disable-line no-console
 });
 
-export default client;
+module.exports = client;

@@ -1,30 +1,27 @@
 const express = require('express');
+const product = require('./product.route');
+const { getDetailProduct, getProductList } = require('../services/product.services');
+const productControllers = require('../controllers/product.controller');
 
 const router = express.Router();
 
+router.use('/product', product);
+
+// detail product
+router.get('/detail/:productId', async (req, res) => {
+  const productDetail = await getDetailProduct(req.params);
+  res.render('pages/detail', { product: productDetail });
+});
+
+// list product
+router.get('/list', async (req, res) => {
+  const productDetail = await getProductList();
+  res.render('pages/list', { products: productDetail });
+});
+
 /* GET home page. */
-router.get('/', (req, res) => {
-  const drinks = [
-    { name: 'Bloody Mary', drunkness: 3 },
-    { name: 'Martini', drunkness: 5 },
-    { name: 'Scotch', drunkness: 10 },
-  ];
-  const tagline = 'Any code of your own that you haven\'t looked at for six or more months might as well have been written by someone else.';
+router.get('/', (req, res) => { res.render('pages/index'); });
 
-  res.render('pages/index', {
-    drinks,
-    tagline,
-  });
-});
-
-// list page
-router.get('/list', (req, res) => {
-  res.render('pages/list');
-});
-
-// detail page
-router.get('/detail', (req, res) => {
-  res.render('pages/detail');
-});
+router.delete('/keys/:key', productControllers.deleteKeys);
 
 module.exports = router;

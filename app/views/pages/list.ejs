@@ -1,0 +1,34 @@
+<html lang="en">
+<head>
+    <%- include('../partials/title') %>
+</head>
+<body class="container">
+
+<header>
+    <%- include('../partials/header') %>
+</header>
+
+<main>
+    <div class="jumbotron">
+        <h1>Product List</h1>
+        <p>Here some link inputed bellow</p>
+
+        <% if (products) { %>
+          <ul>
+
+                <% products.forEach(function(product) { %>
+                    <li><%= product.product_id %> - <%= product.product_link %></li>
+                <% }); %>
+          </ul>
+        <% } else { %>
+          <h2>There's no link inputed</h2>
+        <% } %>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer') %>
+</footer>
+
+</body>
+</html>
