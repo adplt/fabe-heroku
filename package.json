@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "npm run dev:env && nodemon --exec npm run babel-node -- ./app/bin/www",
+    "start": "npm run dev:env && node ./app/bin/www",
     "babel-node": "babel-node --presets=env",
     "dev:env": "set NODE_ENV=dev",
     "test:env": "set NODE_ENV=test",
